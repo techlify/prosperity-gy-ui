@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Write up</h1>
+<div mat-dialog-content>
+  <p>You can write your own writeup</p>
+
+    <mat-form-field>
+        <mat-label>Write Idea</mat-label>
+        <input type="text" matInput [(ngModel)]="data.writeup">
+      </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [disabled]="!data.writeup" [mat-dialog-close]="data.writeup" cdkFocusInitial>Ok</button>
+</div>
