@@ -4,6 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../services/snackbar.service';
+import { AuthService } from '../services/auth.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,7 +21,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit {
 
   userForm: FormGroup;
-  constructor(private fb: FormBuilder, private user: UserService, private snack: SnackbarService, private router: Router) { }
+  constructor(private fb: FormBuilder, private user: UserService, private snack: SnackbarService, private router: Router,private auth:AuthService) { }
 
 
   emailFormControl = new FormControl('', Validators.compose([
