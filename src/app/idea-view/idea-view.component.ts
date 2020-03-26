@@ -14,6 +14,7 @@ export class IdeaViewComponent implements OnInit {
   ideaId;
   ideaData;
   isLoggedIn;
+  vote;
   constructor(private auth:AuthService,private route:ActivatedRoute,private dialog:MatDialog,private ideaService:IdeaViewService,private snack:SnackbarService) { }
 
   ngOnInit(): void {
@@ -24,8 +25,20 @@ export class IdeaViewComponent implements OnInit {
           this.ideaService.feedFetch(this.ideaId).subscribe(response=>{
               this.ideaData = response
           })
+          this.ideaService.getUserVote({idea_id:this.ideaId}).subscribe(response=>{
+            if(response) this.vote = response.vote
+        })
         }
     })
+  }
+  makeVote(vote){
+      this.ideaService.createVote({idea_id:this.ideaId,vote:vote}).subscribe(response=>{
+        this.vote = vote
+        this.snack.openSnack("Voted Successfully")
+        this.ngOnInit()
+      }, error => {
+          this.snack.openSnack("Something went wrong")
+        })
   }
 
   openDialog(): void {

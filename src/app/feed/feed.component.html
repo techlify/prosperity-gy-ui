@@ -124,10 +124,10 @@
                   </p>
               </div>
               <div class="card-footer">
-                  <a [routerLink]="['idea/',data.id]" class="card-link"><i class="fa fa-gittip"></i> View</a>
-                  <!-- <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                  <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a> -->
+                  <a mat-raised-button [routerLink]="['idea/',data.id]" class="card-link"><i class="fa fa-gittip"></i> View</a>              
+                  <button class="ml-2" mat-raised-button>Votes : {{ data.votes?.length }} </button>
               </div>
+              
           </div>
           <!-- Post /////-->
 

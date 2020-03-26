@@ -1,69 +1,71 @@
+<div class="container-fluid gedf-wrapper">
+    <div class="row">
+        <div class="col-md-3">
 
-
-    <div class="container-fluid gedf-wrapper">
-        <div class="row">
-            <div class="col-md-3">
-                
-            </div>
-            <div class="col-md-6 gedf-main">
-                <!--- \\\\\\\Post-->
-                <div class="card gedf-card">
-                    <div class="card-header">
+        </div>
+        <div class="col-md-6 gedf-main">
+            <!--- \\\\\\\Post-->
+            <div class="card gedf-card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="mr-2">
-                                </div>
-                                <div class="ml-2">
-                                    <div class="h5 m-0">{{ideaData?.users?.name}}</div>
-                                </div>
+                            <div class="mr-2">
                             </div>
-                            <div>
-                            
+                            <div class="ml-2">
+                                <div class="h5 m-0">{{ideaData?.users?.name}}</div>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="card-body">
-                        <a class="card-link" href="#">
-                            <h5 class="card-title"></h5>
-                        </a>
-
-                        <p class="card-text">
-                           {{ideaData?.idea}}
-                        </p>
-                    </div>
-                    <div class="card-footer" >
-                        <!-- <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a> -->
-                        <button *ngIf="isLoggedIn" mat-raised-button (click)="openDialog()">Writeup</button>
-                        <!-- <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a> -->
-                        <!-- <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a> -->
-                    </div>
-                </div>                
-                <!-- Post /////-->
-            </div>
-            <div class="col-md-3">
-                
-            </div>
-            
-        </div>
-        <div class="row d-flex justify-content-center mt-100" *ngIf="ideaData?.writeups.length">
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h4 class="card-title">Write ups</h4>
-                    </div>
-                    <div class="comment-widgets">
-                        <!-- Comment Row -->
-                        <div class="d-flex flex-row comment-row m-t-0" *ngFor="let writeupdata of ideaData?.writeups">
-                            <div class="comment-text w-100" >
-                                <h6 class="font-medium">{{writeupdata?.users?.name}}</h6> <span class="m-b-15 d-block">{{writeupdata?.writeup}} </span>
-                                <!-- <div class="comment-footer"> <span class="text-muted float-right">April 14, 2019</span> <button type="button" class="btn btn-cyan btn-sm">Edit</button> <button type="button" class="btn btn-success btn-sm">Publish</button> <button type="button" class="btn btn-danger btn-sm">Delete</button> </div> -->
-                            </div>
+                        <div>
                     
+                                <button class="ml-2" mat-raised-button>Upvotes : {{ideaData.Upvotes}} </button>
+                                <button class="ml-2" mat-raised-button>Downvotes : {{ideaData.Downvotes}}</button>
+                     
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <a class="card-link" href="#">
+                        <h5 class="card-title"></h5>
+                    </a>
+
+                    <p class="card-text">
+                        {{ideaData?.idea}}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <!-- <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a> -->
+                    <button *ngIf="isLoggedIn" mat-raised-button (click)="openDialog()">Writeup</button>
+                    <button *ngIf="isLoggedIn" class="ml-2" (click)="makeVote(1)" [disabled]="this.vote == 1"
+                        type="button" mat-raised-button>Upvote </button>
+                    <button *ngIf="isLoggedIn" class="ml-2" (click)="makeVote(-1)" [disabled]="this.vote == -1"
+                        type="button" mat-raised-button> Downvote </button>
+                </div>
+            </div>
+            <!-- Post /////-->
+        </div>
+        <div class="col-md-3">
+
+        </div>
+
+    </div>
+    <div class="row d-flex justify-content-center mt-100" *ngIf="ideaData?.writeups.length">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Write ups</h4>
+                </div>
+                <div class="comment-widgets">
+                    <!-- Comment Row -->
+                    <div class="d-flex flex-row comment-row m-t-0" *ngFor="let writeupdata of ideaData?.writeups">
+                        <div class="comment-text w-100">
+                            <h6 class="font-medium">{{writeupdata?.users?.name}}</h6> <span
+                                class="m-b-15 d-block">{{writeupdata?.writeup}} </span>
+                            <!-- <div class="comment-footer"> <span class="text-muted float-right">April 14, 2019</span> <button type="button" class="btn btn-cyan btn-sm">Edit</button> <button type="button" class="btn btn-success btn-sm">Publish</button> <button type="button" class="btn btn-danger btn-sm">Delete</button> </div> -->
+                        </div>
+
                     </div> <!-- Card -->
                 </div>
             </div>
         </div>
     </div>
-
-   
