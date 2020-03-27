@@ -4,6 +4,7 @@
 
         </div>
         <div class="col-md-6 gedf-main">
+
             <!--- \\\\\\\Post-->
             <div class="card gedf-card">
                 <div class="card-header">
@@ -16,9 +17,9 @@
                             </div>
                         </div>
                         <div>
-                    
-                                <button class="ml-2" mat-raised-button>Upvotes : {{ideaData.Upvotes}} </button>
-                                <button class="ml-2" mat-raised-button>Downvotes : {{ideaData.Downvotes}}</button>
+                                <button class="ml-2" *ngIf="isLoggedIn" data-toggle="modal" data-target="#rateModal" mat-raised-button>Rate this idea</button>
+                                <button class="ml-2" mat-raised-button>Upvotes : {{ideaData?.Upvotes}} </button>
+                                <button class="ml-2" mat-raised-button>Downvotes : {{ideaData?.Downvotes}}</button>
                      
                         </div>
                     </div>
@@ -43,29 +44,78 @@
                 </div>
             </div>
             <!-- Post /////-->
+            <div class="card gedf-card writeup-style" *ngIf="ideaData?.writeups.length">
+              
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Write ups</h4>
+                        </div>
+                        <div class="comment-widgets">
+                            <!-- Comment Row -->
+                            <div class="d-flex flex-row comment-row m-t-0" *ngFor="let writeupdata of ideaData?.writeups">
+                                <div class="comment-text w-100">
+                                    <h6 class="font-medium">{{writeupdata?.users?.name}}</h6> <span
+                                        class="m-b-15 d-block">{{writeupdata?.writeup}} </span>
+                                    <!-- <div class="comment-footer"> <span class="text-muted float-right">April 14, 2019</span> <button type="button" class="btn btn-cyan btn-sm">Edit</button> <button type="button" class="btn btn-success btn-sm">Publish</button> <button type="button" class="btn btn-danger btn-sm">Delete</button> </div> -->
+                                </div>
+        
+                            </div> <!-- Card -->
+                        </div>
+                    </div>
+             
+            </div>
         </div>
         <div class="col-md-3">
+
+            <mat-card class="example-card">
+                <mat-card-header>
+                  <mat-card-title>Average rating</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <ngx-stars *ngIf="rateStar" [readonly]="true" [size]="3" [initialStars]="showRating" color="#03A9F4"></ngx-stars>
+                </mat-card-content>
+    
+              </mat-card>
+
+              <mat-card class="example-card" style="margin-top: 10px;" *ngFor="let recommend of ideaData?.recommendations">
+                <mat-card-header>
+                  <mat-card-title>{{recommend?.users?.name}}</mat-card-title>
+                  <mat-card-subtitle>{{recommend?.text}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <ngx-stars *ngIf="rateStar" [readonly]="true" [size]="1" [initialStars]="recommend?.rating" color="#03A9F4"></ngx-stars>
+                </mat-card-content>
+    
+              </mat-card>
 
         </div>
 
     </div>
     <div class="row d-flex justify-content-center mt-100" *ngIf="ideaData?.writeups.length">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h4 class="card-title">Write ups</h4>
-                </div>
-                <div class="comment-widgets">
-                    <!-- Comment Row -->
-                    <div class="d-flex flex-row comment-row m-t-0" *ngFor="let writeupdata of ideaData?.writeups">
-                        <div class="comment-text w-100">
-                            <h6 class="font-medium">{{writeupdata?.users?.name}}</h6> <span
-                                class="m-b-15 d-block">{{writeupdata?.writeup}} </span>
-                            <!-- <div class="comment-footer"> <span class="text-muted float-right">April 14, 2019</span> <button type="button" class="btn btn-cyan btn-sm">Edit</button> <button type="button" class="btn btn-success btn-sm">Publish</button> <button type="button" class="btn btn-danger btn-sm">Delete</button> </div> -->
-                        </div>
-
-                    </div> <!-- Card -->
-                </div>
-            </div>
-        </div>
+        
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="rateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Rate and review for this idea</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <mat-form-field class="example-full-width">
+                <mat-label>Leave a review</mat-label>
+                <textarea [(ngModel)]="review" matInput placeholder="Ex. It's a good idea..."></textarea>
+              </mat-form-field>
+            <ngx-stars [readonly]="false" [size]="2" [initialStars]="rating" [wholeStars]=true color="#03A9F4" (ratingOutput)="onRatingSet($event)"></ngx-stars>
+        </div>
+        <div class="modal-footer">
+          <button mat-raised-button class="ml-2" data-dismiss="modal">Close</button>
+          <button mat-raised-button class="ml-2" (click)="saveRating()" [disabled]="!rating || !review" data-dismiss="modal" >Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
