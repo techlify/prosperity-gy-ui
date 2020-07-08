@@ -20,7 +20,7 @@ export class IdeaViewService {
     return this.httpclient.get(environment.apiURL+'api/idea/'+id, httpOptions)
   }
 
-  createwriteup(model):any{
+  createwriteup(model):any {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -28,6 +28,24 @@ export class IdeaViewService {
       })
     };
     return this.httpclient.post(environment.apiURL+'api/auth/create-writeup',model, httpOptions).pipe(catchError(this.handleError))
+  }
+  getUserVote(model):any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('userAuth')
+      })
+    };
+    return this.httpclient.post(environment.apiURL+'api/auth/get-vote',model, httpOptions).pipe(catchError(this.handleError))
+  }
+  createVote(model):any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('userAuth')
+      })
+    };
+    return this.httpclient.post(environment.apiURL+'api/auth/create-vote',model, httpOptions).pipe(catchError(this.handleError))
   }
   handleError(error) {
 
