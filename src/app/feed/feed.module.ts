@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FeedComponent } from './feed.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import {MatSelectModule} from '@angular/material/select';
 
 
 const feed:Routes = [
@@ -14,7 +15,8 @@ const feed:Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(feed),
-    SharedModule
+    SharedModule,
+    MatSelectModule
   ],
 })
 export class FeedModule { }

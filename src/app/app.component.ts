@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
     if(this.loggedIn) {
       this.user.userData().subscribe(response => {
         this.userData = response;
+        this.auth.setUserData(this.userData)
       })
     }
   }
