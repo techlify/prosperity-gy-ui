@@ -11,7 +11,7 @@ export class IdeaViewService {
 
   constructor(private httpclient:HttpClient) { }
 
-  feedFetch(id){
+  feedFetch(id):any{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -46,6 +46,15 @@ export class IdeaViewService {
       })
     };
     return this.httpclient.post(environment.apiURL+'api/auth/create-vote',model, httpOptions).pipe(catchError(this.handleError))
+  }
+  createRecommendation(model):any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('userAuth')
+      })
+    };
+    return this.httpclient.post(environment.apiURL+'api/auth/create-recommendation',model, httpOptions).pipe(catchError(this.handleError))
   }
   handleError(error) {
 

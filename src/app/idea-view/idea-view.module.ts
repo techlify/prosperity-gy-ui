@@ -3,6 +3,7 @@ import { IdeaViewComponent, DialogOverviewExampleDialog } from './idea-view.comp
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import {MatDialogModule} from '@angular/material/dialog';
+import { NgxStarsModule } from 'ngx-stars';
 
 
 const ideaview:Routes = [
@@ -14,7 +15,8 @@ const ideaview:Routes = [
   imports: [
     SharedModule,
     RouterModule.forChild(ideaview),
-    MatDialogModule
+    MatDialogModule,
+    NgxStarsModule
   ]
 })
 export class IdeaViewModule { }

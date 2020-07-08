@@ -15,30 +15,48 @@ export class IdeaViewComponent implements OnInit {
   ideaData;
   isLoggedIn;
   vote;
-  constructor(private auth:AuthService,private route:ActivatedRoute,private dialog:MatDialog,private ideaService:IdeaViewService,private snack:SnackbarService) { }
+  rating;
+  review;
+  showRating;
+  rateStar = false
+  constructor(private auth: AuthService, private route: ActivatedRoute, private dialog: MatDialog, private ideaService: IdeaViewService, private snack: SnackbarService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuthenticated()
     this.route.params.subscribe(params => {
-        if(params['id']) {
-          this.ideaId = params['id']
-          this.ideaService.feedFetch(this.ideaId).subscribe(response=>{
-              this.ideaData = response
-          })
-          this.ideaService.getUserVote({idea_id:this.ideaId}).subscribe(response=>{
-            if(response) this.vote = response.vote
+      if (params['id']) {
+        this.ideaId = params['id']
+        this.rateStar = false;
+        this.ideaService.feedFetch(this.ideaId).subscribe(response => {
+          this.ideaData = response
+          this.showRating = response.Ratings
+          this.rateStar =true;
         })
-        }
+        this.ideaService.getUserVote({ idea_id: this.ideaId }).subscribe(response => {
+          if (response) this.vote = response.vote
+        })
+      }
     })
   }
-  makeVote(vote){
-      this.ideaService.createVote({idea_id:this.ideaId,vote:vote}).subscribe(response=>{
-        this.vote = vote
-        this.snack.openSnack("Voted Successfully")
-        this.ngOnInit()
-      }, error => {
-          this.snack.openSnack("Something went wrong")
-        })
+  makeVote(vote) {
+    this.ideaService.createVote({ idea_id: this.ideaId, vote: vote }).subscribe(response => {
+      this.vote = vote
+      this.snack.openSnack("Voted Successfully")
+      this.ngOnInit()
+    }, error => {
+      this.snack.openSnack("Something went wrong")
+    })
+  }
+  onRatingSet(event) {
+    this.rating = event
+  }
+  saveRating() {
+    this.ideaService.createRecommendation({ idea_id: this.ideaId, rating: this.rating, text: this.review }).subscribe(response => {
+      this.snack.openSnack("Rated Successfully")
+      this.ngOnInit()
+    }, error => {
+      this.snack.openSnack("Something went wrong")
+    })
   }
 
   openDialog(): void {
@@ -48,14 +66,14 @@ export class IdeaViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-        this.ideaService.createwriteup({idea_id:this.ideaData.id,writeup:result}).subscribe(response=>{
-          if (response) {
-              this.ngOnInit();
-              this.snack.openSnack("Writeup added successfully")
-          }
-        }, error => {
-          this.snack.openSnack("Something went wrong")
-        })
+      this.ideaService.createwriteup({ idea_id: this.ideaData.id, writeup: result }).subscribe(response => {
+        if (response) {
+          this.ngOnInit();
+          this.snack.openSnack("Writeup added successfully")
+        }
+      }, error => {
+        this.snack.openSnack("Something went wrong")
+      })
     });
   }
 
