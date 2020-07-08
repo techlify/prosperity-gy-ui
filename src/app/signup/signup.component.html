@@ -1,0 +1,65 @@
+
+
+<div class="main-div">
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Sign Up</mat-card-title>
+        </mat-card-header>
+    <form class="example-form" [formGroup]='userForm' (ngSubmit)="addUser()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput [formControl]="nameFormControl"
+               placeholder="Enter name" >
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input matInput [formControl]="emailFormControl"
+                 placeholder="Ex. pat@example.com" >
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('incorrect')">
+            Email is <strong>already taken</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input matInput 
+                   placeholder="Enter Password" type="password" [formControl]="passwordFormControl" formControlName='password'>
+
+            <mat-error *ngIf="passwordFormControl.hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+                Password must be 5 letters
+              </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput placeholder="Enter Confirm Password" type="password" [formControl]="verifyPasswordFormControl" formControlName='verifyPassword'>
+              <mat-error *ngIf="userForm.hasError('passwordsDoNotMatch')">
+                Password must be same
+              </mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">Submit</button>
+          <button [routerLink]="['/login']" style="margin-left: 50px;" mat-raised-button color="primary" >Login</button >
+
+      </form>
+
+
+
+</mat-card>
+
+</div>
+
+
+
+  
