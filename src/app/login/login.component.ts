@@ -14,7 +14,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [UserService]
 })
 export class LoginComponent implements OnInit {
 
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
       if (response) {
         this.snack.openSnack("Login success!!!")
         localStorage.setItem('userAuth',response.access_token)
-        this.router.navigate(['/home'])
+        this.router.navigate(['/'])
       }
     }, error => {
       this.snack.openSnack("Login failed. Please check credentials")

@@ -1,0 +1,33 @@
+<div class="container" style="margin-top:50px">
+  <div class="row" *ngIf="isLoggedIn">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <button mat-raised-button (click)="openDialog()">Create Idea</button>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
+<div class="container" style="margin-top:50px">
+  <div class="row">
+    <div class="col-auto" style="margin-top:20px" *ngFor="let data of feedData">
+      <!-- <div class="col">Col1</div>
+      <div class="col">Col2</div> -->
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{data.users.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{data.idea}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>Upvote</button>
+          <button mat-button>Downvote</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
