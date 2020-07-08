@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FeedComponent, DialogOverviewExampleDialog } from './feed.component';
+import { FeedComponent } from './feed.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import {MatDialogModule} from '@angular/material/dialog';
 
 
 const feed:Routes = [
@@ -11,12 +10,11 @@ const feed:Routes = [
 ]
 
 @NgModule({
-  declarations: [FeedComponent,DialogOverviewExampleDialog],
+  declarations: [FeedComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(feed),
-    SharedModule,
-    MatDialogModule
+    SharedModule
   ],
 })
 export class FeedModule { }
